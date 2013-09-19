@@ -1,0 +1,15 @@
+.deferred {
+  height: 100px;
+  width: 350px;
+  margin-bottom: 80px;
+}
+
+.deferred .progress { height: 100px; }
+
+.glyphicon {
+  height: 50px;
+  width: 50px;
+  float: left;
+  margin: 18px;
+  font-size: 3em;
+}
