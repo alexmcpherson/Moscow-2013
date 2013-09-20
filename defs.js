@@ -1,4 +1,4 @@
-var DefProgress = Backbone.Model.extend({
+var ProgressModel = Backbone.Model.extend({
   defaults: {
     progress: 0,
     type: 'resolved',
@@ -8,7 +8,7 @@ var DefProgress = Backbone.Model.extend({
   tick: function() {
     var self = this;
     if (this.get('progress') <= 100) {
-      this.set('progress', this.get('progress')+ Math.random()*10);
+      this.set('progress', this.get('progress') + Math.random() * 10);
 
       setTimeout(function() {
         self.tick()
@@ -31,7 +31,7 @@ var DefView = Backbone.View.extend({
   },
 
   initialize: function(attrs) {
-    this.model = new DefProgress(attrs);
+    this.model = new ProgressModel(attrs);
     $('body').append( this.render() );
     this.model.on('change:progress', _.bind(this.updateProgress, this));
     this.model.on('progress:resolved progress:rejected', _.bind(this.always, this));
@@ -52,6 +52,7 @@ var DefView = Backbone.View.extend({
   },
 
   playProgress: function() {
+    this.$('.glyphicon-play').removeClass('glyphicon-play').addClass('glyphicon-cog');
     this.model.tick();
   },
 
@@ -60,7 +61,7 @@ var DefView = Backbone.View.extend({
   },
 
   always: function() {
-    console.log('always')
+    console.log('always');
   },
 
   resolved: function() {
@@ -68,6 +69,7 @@ var DefView = Backbone.View.extend({
       .removeClass('active')
       .find('.progress-bar')
       .addClass('progress-bar-success')
+    this.$('.glyphicon-cog').removeClass('glyphicon-cog').addClass('glyphicon-ok');
   },
 
   rejected: function() {
@@ -75,6 +77,26 @@ var DefView = Backbone.View.extend({
       .removeClass('active')
       .find('.progress-bar')
       .addClass('progress-bar-danger')
+    this.$('.glyphicon-cog').removeClass('glyphicon-cog').addClass('glyphicon-ban-circle');
   }
-
 });
+
+var CallBackView = Backbone.View.extend({
+
+  className: 'callback',
+
+  initialize: function() {
+    $('body').append( this.render() );
+    console.log('cb view');
+  },
+
+  render: function() {
+    this.$el.append('<h4>callback</h4>');
+    return this.$el;
+  },
+
+  fire: function() {
+    this.$el.append('<div>FIRED!</div>');
+    this.$('div').fadeOut(3000)
+  }
+})

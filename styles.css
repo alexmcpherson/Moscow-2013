@@ -1,7 +1,17 @@
-.deferred {
+.deferred, .callback {
   height: 100px;
   width: 350px;
   margin-bottom: 80px;
+  float: left;
+}
+
+.deferred {
+  clear: left;
+  margin-right: 20%;
+}
+
+.callback {
+  border: 1px solid #999;
 }
 
 .deferred .progress { height: 100px; }
@@ -12,4 +22,17 @@
   float: left;
   margin: 18px;
   font-size: 3em;
+}
+
+@-webkit-keyframes rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.glyphicon-cog {
+    -webkit-animation: rotating 2s linear infinite;
 }
